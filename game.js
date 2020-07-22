@@ -89,4 +89,13 @@ function create() {
   this.input.on("pointerdown", flapNow)
 }
 
+function random_pos(){
+    let safePadding = 25; //безопасный вертикальный отступ
+    let min = Math.ceil(safePadding + gap / 2);
+    let max = Math.floor(game.canvas.height - safePadding - gap/2)
+    let ran = Math.floor(Math.random() * (max - min  + 1)) + min
+    let rantop = ran - (gap / 2 + 260) // 260 доп расстояние
+    let ranbot = ran - (gap / 2 + 260) // 260 доп расстояние
+    return [ranbot, rantop]
+}
 
