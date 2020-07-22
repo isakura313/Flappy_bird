@@ -39,14 +39,14 @@ function preload() {
     frameHeight: 24,
   });
 
-  this.load.audio("flap", "./assets/sounds/sfx_wing.ogg");
+  this.load.audio("flap", "./assets/sounds/sfx_wing.ogg"); // загрузка звуков
   this.load.audio("hit", "./assets/sounds/sfx_hit.ogg");
   this.load.audio("die", "./assets/sounds/sfx_die.ogg");
   this.load.audio("score", "./assets/sounds/sfx_point.ogg");
 }
 
-var platforms, spacebar, player, scoreText;
-var gap = 150; // расстнояние по вертикали между нашими тубами
+var platforms, spacebar, player, scoreText; // платформа, пробел,игрока и наш счет
+var gap = 350; // расстояние по вертикали между нашими тубами
 var xGap = 250; // расстояние по горизонтали
 var music;
 
@@ -91,13 +91,13 @@ function create() {
 }
 
 function random_pos(){
-    let safePadding = 25; //безопасный вертикальный отступ
-    let min = Math.ceil(safePadding + gap / 2);
-    let max = Math.floor(game.canvas.height - safePadding - gap/2)
-    let ran = Math.floor(Math.random() * (max - min  + 1)) + min
-    let rantop = ran - (gap / 2 + 260) // 260 доп расстояние
-    let ranbot = ran - (gap / 2 + 260) // 260 доп расстояние
-    return [ranbot, rantop]
+  let safePadding = 250;
+  let min = Math.ceil(safePadding + gap / 2); // Math.ceil - округление вверх
+  let max = Math.floor(game.canvas.height - safePadding - gap / 2);
+  let ran = Math.floor(Math.random() * (max - min + 1)) + min;
+  let rantop = ran - (gap / 2 + 260);  
+  let ranbot = ran + (gap / 2 + 260);
+  return [ranbot, rantop]; //возвращаем нижнюю и верхнюю позицию
 }
 
 var countpipe = 0;
