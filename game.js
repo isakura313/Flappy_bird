@@ -99,3 +99,68 @@ function random_pos(){
     return [ranbot, rantop]
 }
 
+var countpipe = 0;
+function update(){
+    let children = platforms.getChildren(); //получаем детей наших платформ
+    сhildren.forEach((child) => {
+        if(child instanceof Phaser.GameObjects.Sprite){
+            child.refreshBody();
+            child.x +=  -3;
+            if(child.x <= gameWidth && !child.drawn){
+                countpipe += 1;
+                child.drawn = true;
+
+                if (countpipe >= 2){
+                    let pos = random_pos();
+                    platforms
+                    .create(gameWidth + xGap, pos[0], "pipeb")
+                    .setScale(1)
+                    .refreshBody();
+
+                    platforms
+                    .create(gameWidth + xGap, pos[1], "pipeb")
+                    .setScale(1)
+                    .refreshBody();
+                    countpipe = 0;
+                }
+            }
+            if (child.x <= -50){
+                child.destroy();
+            }
+            if(
+                child.x < birdX &&
+                !gameOver &&
+                child.texture.key == "pipeb"&&
+                !child.scored
+            ){
+                child.scored = true;
+                score += 1;
+                scoreText.text(score)
+                game.sound.play("score")
+            }
+        }
+    }) ;
+    if (player.y > Number(game.canvas.height) + 200){
+        endGame();
+    }
+    if (player.y < -200){
+        endGame();
+    }
+}
+function flapNow(){
+    if(gameOver) return;
+
+    player.setVelocityY(-330);
+    game.sound.play('flap');
+    player.play("flap", true)
+}
+var hitFlag = false;
+function playerHit(){
+    if (hitFlag) return;
+    var hitSound = game.sound.play("hit");
+    hitflag = true;
+    setTimeout(() => {
+        playerDead
+    }, 300);
+}
+
