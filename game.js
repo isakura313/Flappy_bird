@@ -50,6 +50,12 @@ var gap = 150;// расстнояние по вертикали между на�
 var xGap = 250; // расстояние по горизонтали
 var music;
 
+function getRandom(arr){
+    rand = Math.floor(Math.random() * arr.length)
+    return rand;
+}
+
 function create(){
-    
+    var colors = ['red', 'green', 'blue'] //чтобы у нас как оригинале небо перекрашивалось
+    this.cameras.main.setBackgroundColor(getRandom(colors))
 }
