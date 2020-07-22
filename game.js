@@ -46,16 +46,47 @@ function preload() {
 }
 
 var platforms, spacebar, player, scoreText;
-var gap = 150;// расстнояние по вертикали между нашими тубами
+var gap = 150; // расстнояние по вертикали между нашими тубами
 var xGap = 250; // расстояние по горизонтали
 var music;
 
-function getRandom(arr){
-    rand = Math.floor(Math.random() * arr.length)
-    return rand;
+function getRandom(arr) {
+  rand = Math.floor(Math.random() * arr.length);
+  return rand;
 }
 
-function create(){
-    var colors = ['red', 'green', 'blue'] //чтобы у нас как оригинале небо перекрашивалось
-    this.cameras.main.setBackgroundColor(getRandom(colors))
+function create() {
+  var colors = ["red", "green", "blue"]; //чтобы у нас как оригинале небо перекрашивалось
+  this.cameras.main.setBackgroundColor(getRandom(colors));
+
+  scoreText = this.add.text(birdX, gameHeight / 4, score, {
+    fontFamily: "04b19",
+    fontSize: 60,
+    color: "#fff",
+  });
+  platforms = this.physics.add.staticGroup();
+  var pipePos = gameWidth + 2 * xGap;
+  let pos = random_pos();
+  platforms.create(pipePos, pos[0], "pipeb").setScale(1).refreshBody();
+  platforms.create(pipePos, pos[1], "pipet").setScale(1).refreshBody();
+
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(true);
+
+  this.anims.create({
+      key:"flap",
+      frames: this.anims.generateFrameNumbers("birdy", {start: 0, end: 3}),
+      frameRate: 20,
+      repeat: -1,
+  });
+
+  player.body.setGravityY(300) // добавялем как бы "вес" нашему игроку
+
+  this.physics.add.collider(player, platforms, playerHit, null, game)
+
+  spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+  this.input.keyboard.on("keydown-"+"SPACE", flapNow);
+  this.input.on("pointerdown", flapNow)
 }
+
+
