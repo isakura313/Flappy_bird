@@ -31,9 +31,9 @@ var birdX = gameWidth / 2 - 50;
 var birdY = gameHeight / 2 - 50;
 
 function preload() {
-  this.load.images("sky", "assets/sky.png");
-  this.load.images("pipeb", "assets/pipeb.png");
-  this.load.images("pipet", "assets/pipet.png");
+  this.load.image("sky", "assets/sky.png");
+  this.load.image("pipeb", "assets/pipeb.png");
+  this.load.image("pipet", "assets/pipet.png");
   this.load.spritesheet("birdy", "assets/birdy.png", {
     frameWidth: 34,
     frameHeight: 24,
@@ -70,6 +70,7 @@ function create() {
   platforms.create(pipePos, pos[0], "pipeb").setScale(1).refreshBody();
   platforms.create(pipePos, pos[1], "pipet").setScale(1).refreshBody();
 
+  player = this.physics.add.sprite(birdX, birdY, "birdy")
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
 
@@ -101,8 +102,8 @@ function random_pos(){
 
 var countpipe = 0;
 function update(){
-    let children = platforms.getChildren(); //получаем детей наших платформ
-    сhildren.forEach((child) => {
+    var children = platforms.getChildren(); //получаем детей наших платформ
+    children.forEach((child) => {
         if(child instanceof Phaser.GameObjects.Sprite){
             child.refreshBody();
             child.x +=  -3;
@@ -118,7 +119,7 @@ function update(){
                     .refreshBody();
 
                     platforms
-                    .create(gameWidth + xGap, pos[1], "pipeb")
+                    .create(gameWidth + xGap, pos[1], "pipet")
                     .setScale(1)
                     .refreshBody();
                     countpipe = 0;
@@ -135,7 +136,7 @@ function update(){
             ){
                 child.scored = true;
                 score += 1;
-                scoreText.text(score)
+                scoreText.setText(score)
                 game.sound.play("score")
             }
         }
