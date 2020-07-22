@@ -56,8 +56,8 @@ function getRandom(arr) {
 }
 
 function create() {
-  var colors = ["red", "green", "blue"]; //чтобы у нас как оригинале небо перекрашивалось
-  this.cameras.main.setBackgroundColor(getRandom(colors));
+  var colors = ["#80ff80", "#000080", " #800080"]; //чтобы у нас как оригинале небо перекрашивалось
+  this.cameras.main.setBackgroundColor(colors[getRandom(colors)]); // ЗДЕСЬ НЕМНОГО ПОПРАВИЛ
 
   scoreText = this.add.text(birdX, gameHeight / 4, score, {
     fontFamily: "04b19",
