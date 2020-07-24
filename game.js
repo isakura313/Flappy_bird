@@ -71,7 +71,7 @@ function create() {
   platforms.create(pipePos, pos[1], "pipet").setScale(1).refreshBody();
 
   player = this.physics.add.sprite(birdX, birdY, "birdy")
-  player.setBounce(0.2);
+  player.setBounce(0.3);
   player.setCollideWorldBounds(true);
 
   this.anims.create({
@@ -161,7 +161,19 @@ function playerHit(){
     var hitSound = game.sound.play("hit");
     hitflag = true;
     setTimeout(() => {
-        playerDead
-    }, 300);
+        playerDead();
+    }, 100);
+}
+function playerDead(){
+  game.sound.play("die");
+  player.setCollideWorldBounds(false)
+  gameOver = true;
+}
+function endGame(){
+  gameOver = true;
+  player.y = 450;
+  setTimeout(() => {
+    window.location.reload()
+  }, 50);
 }
 
