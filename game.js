@@ -34,8 +34,8 @@ function preload() {
   this.load.image("sky", "assets/sky.png");
   this.load.image("pipeb", "assets/pipeb.png");
   this.load.image("pipet", "assets/pipet.png");
-  this.load.spritesheet("birdy", "assets/birdy.png", {
-    frameWidth: 34,
+  this.load.spritesheet("birdy", "assets/blue.png", {
+    frameWidth: 32,
     frameHeight: 24,
   });
 
@@ -162,7 +162,7 @@ function playerHit(){
     hitflag = true;
     setTimeout(() => {
         playerDead();
-    }, 100);
+    }, 20);
 }
 function playerDead(){
   game.sound.play("die");
